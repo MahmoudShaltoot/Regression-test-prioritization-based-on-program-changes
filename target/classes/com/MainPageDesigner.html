@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;GENERATE_GETTERS&quot;:false,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
+  <meta name="vaadin-version" content="8.1.5">
+ </head>
+ <body>
+  <vaadin-vertical-layout style-name="mainPageVerticalLayout">
+   <vaadin-image source="D:/DesignMyGraduationProject/src/main/webapp/images/mainPageimage.jpg" width-full height="200px"></vaadin-image>
+   <vaadin-horizontal-layout style-name="mainPageHorizontalLayout" size-full>
+    <vaadin-vertical-layout size-auto>
+     <vaadin-label style-name="labelRTP" plain-text _id="labelRTP">
+       Regression Testing prioritization 
+     </vaadin-label>
+     <vaadin-text-area style-name="textArea" width="502px" height="189px">
+       Software quality can be assured by going through software testing process. However, software testing phase is an expensive process as it consumes a longer time. By scheduling test cases execution order through a prioritization approach, software testing efficiency can be improved especially during regression testing 
+     </vaadin-text-area>
+    </vaadin-vertical-layout>
+    <vaadin-form-layout style-name="mainPageLogInForm" size-auto _id="formLayout">
+     <vaadin-horizontal-layout>
+      <vaadin-label width="80px" plain-text :middle :center>
+        E-mail 
+      </vaadin-label>
+      <vaadin-text-field _id="userNameTextField"></vaadin-text-field>
+     </vaadin-horizontal-layout>
+     <vaadin-horizontal-layout>
+      <vaadin-label width="80px" plain-text :middle :center>
+        Password 
+      </vaadin-label>
+      <vaadin-password-field _id="passwordTextField"></vaadin-password-field>
+     </vaadin-horizontal-layout>
+     <vaadin-button style-name="logInButton primary" plain-text _id="logInButton">
+       Log in 
+     </vaadin-button>
+     <vaadin-button style-name="link small signUpButton" plain-text>
+       Sign Up 
+     </vaadin-button>
+    </vaadin-form-layout>
+   </vaadin-horizontal-layout>
+  </vaadin-vertical-layout>
+ </body>
+</html>
