@@ -3,11 +3,20 @@ package com;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import com.vaadin.ui.Image;
+import com.vaadin.server.ThemeResource;
 
 public class MainPage extends MainPageDesigner {
 
     MainPage(VerticalLayout verticalLayout , MyUI myUI){
         this.addStyleName("mainPageVerticalLayout");
+        
+//        Image coverImage = new Image(
+//                "",
+//                new ThemeResource("images/mainPageCover.jpg")
+//            );
+//        coverImage.setWidth("100%");
+//        this.addComponent(coverImage);
 
         logInButton.addClickListener(e -> {
             String username = userNameTextField.getValue();
@@ -51,7 +60,7 @@ public class MainPage extends MainPageDesigner {
 
             }
             else{
-                Notification.show("User name or Password not correct");
+                Notification.show("Username or Password not correct");
             }
         });
     }
