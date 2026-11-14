@@ -11,6 +11,8 @@ import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.SolrQuery;
+
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.params.MapSolrParams;
@@ -19,23 +21,19 @@ public class Solrj {
 
 	public static List<String> TestCases;
 
-	private Solrj(){
-		//Private Constructor
-	}
+	private Solrj() {}
 
 	public static void retrieveTestCases() throws SolrServerException, IOException {
 
 		TestCases = new ArrayList<String>();
 
-		final String url = "http://localhost:8983/solr/firstcore";
+		final String url = "http://localhost:8983/solr/new_core";
 		final SolrClient client = new HttpSolrClient.Builder(url).build();
 
-		solrStartedMessage();
+		logMessage("Retrive Test Cases");
 		Map<String, String> queryParamMap = new HashMap<String, String>();
 
 		queryParamMap.put("q", "*:*");
-
-		// search in specific field ['name' field]
 		queryParamMap.put("fl", "name");
 
 		MapSolrParams queryParams = new MapSolrParams(queryParamMap);
@@ -52,13 +50,12 @@ public class Solrj {
 	}
 
 	public static String search(String quary) throws SolrServerException, IOException {
-		if (quary.equals("")) {
-			return "";
-		}
-		final String url = "http://localhost:8983/solr/firstcore";
+		if (quary.equals("")) return "";
+		
+		final String url = "http://localhost:8983/solr/new_core";
 		final SolrClient client = new HttpSolrClient.Builder(url).build();
 
-		solrStartedMessage();
+		logMessage("Apply search");
 		Map<String, String> queryParamMap = new HashMap<String, String>();
 
 		// quary = removeCommonKeywords(quary);
@@ -133,6 +130,7 @@ public class Solrj {
 
 	public static void indexNewDoc(List<String> testMethods) throws SolrServerException, IOException {
 		String url = "http://localhost:8983/solr";
+
 		SolrClient client = new HttpSolrClient.Builder(url).build();
 
 		SolrInputDocument doc;
@@ -140,10 +138,12 @@ public class Solrj {
 			doc = new SolrInputDocument();
 			doc.addField("name", tmpMethods);
 			// @Param "Document name in solr server" , DocumentObject
-			client.add("firstcore", doc);
+			client.add("new_core", doc);
 
-			client.commit("firstcore");
+			client.commit("new_core");
 		}
+		
+		System.out.println("Successfully indexed " + testMethods.size() + " documents.");
 	}
 
 	public static String removeCommonKeywords(String query) {
@@ -159,11 +159,24 @@ public class Solrj {
 		return newquery;
 	}
 
-	public static void solrStartedMessage() {
-		System.out.println(
-				"----------------------------------------------------------------------------------------------------");
-		System.out.println("\t\t\t\t\t\t Solr Started");
-		System.out.println(
-				"----------------------------------------------------------------------------------------------------");
+	public static boolean isSolrEmpty() throws SolrServerException, IOException {
+
+	    String url = "http://localhost:8983/solr";
+
+	    try (SolrClient client = new HttpSolrClient.Builder(url).build()) {
+
+	        SolrQuery query = new SolrQuery("*:*");
+	        query.setRows(0);
+
+	        QueryResponse response = client.query("new_core", query);
+
+	        return response.getResults().getNumFound() == 0;
+	    }
+	}
+
+	public static void logMessage(String message) {
+		System.out.println("----------------------------------------------------------------------------------------------------");
+		System.out.printf("%40s%n", message);
+		System.out.println("----------------------------------------------------------------------------------------------------");
 	}
 }
