@@ -3,6 +3,8 @@ package com;
 import java.io.IOException;
 
 import org.apache.solr.client.solrj.SolrServerException;
+import java.util.List;
+import java.util.Arrays;
 
 public class App {
     private	static int counter = 1;
@@ -31,19 +33,29 @@ public class App {
 
 			counter--;
 		}
+		
+		boolean isEmpty = Solrj.isSolrEmpty();
+		if (isEmpty) {
+			System.out.println("Adding test cases to Solr!");
 
-		  /*
-		  *
-		  * Use these TestCasesNames in your Solr Core So you can Retrieve it while search by
-		  * Method names
-		  *
-		  *
-			List<String> strings = Arrays.asList("testStartingOfApplication", "testPerformTask", "IsNotAnrenewVariables",
-			"FailToperformMemoryTask", "IsNotAnrenewVariables", "FailToPerformMemoryTask", "doMathIsCorrect",
-			"testAddText", "TestPerformNumberTask", "TestChangePositiveToNegative", "TestChangeNegativeToPositive");
+			List<String> strings = Arrays.asList(
+				"testStartingOfApplication",
+				"testPerformTask",
+				"IsNotAnrenewVariables",
+				"FailToperformMemoryTask",
+				"IsNotAnrenewVariables",
+				"FailToPerformMemoryTask",
+				"doMathIsCorrect",
+				"testAddText",
+				"TestPerformNumberTask",
+				"TestChangePositiveToNegative",
+				"TestChangeNegativeToPositive"
+			);
+
 			Solrj.indexNewDoc(strings);
-		  *
-		  * */
+		} else {
+			System.out.println("Test Cases indexed!");
+		}
 	}
 
 	public static void setDirectory(String directory){
